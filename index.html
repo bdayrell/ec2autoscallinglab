@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Math Lab</title>
+    <!-- Styling for the client UI -->
+    <style>
+    h1 {
+        color: #FFFFFF;
+        font-family: system-ui;
+		margin-left: 20px;
+        }
+	body {
+        background-color: #222629;
+        }
+        
+    form{
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+    label {
+        color: #86C232;
+        font-family: system-ui;
+        font-size: 20px;
+		margin-top: 20px;
+        display: block
+        }
+     button {
+        background-color: #86C232;
+		border-color: #FFF;
+        border-width: 2px;
+        border-radius: 5px;
+		color: #FFFFFF;
+        font-family: system-ui;
+        font-size: 20px;
+		font-weight: bold;
+		margin-top: 20px;
+		width: 140px;
+        display: block;
+        cursor: pointer;
+        }
+    button:hover{
+        color: #86C232;
+        background-color: #EEE;
+        border-color: #86C232;
+        transition: .5s;       
+    }
+	 input {
+        color: #999;
+        font-family: system-ui;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 3px;
+		margin-top: 2px;
+		width: 100px;
+        display: block
+        }
+    input::placeholder{
+        color: #CCC;
+    }
+    </style>
+    <!-- <script src = "file.js"></script> -->
+    <script>
+        // callAPI function that takes the base and exponent numbers as parameters
+        var callAPI = (base,exponent)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"base":base,"exponent":exponent});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            // Função de teste, executa um cálculo de potencia
+
+            // Verifique se o valor do input não está vazio
+            if (base.trim() === "" || exponent.trim() === "") {
+                alert("O campo está vazio. Por favor, insira um valor.");
+            } else {
+                var pow = Math.pow(base, exponent);
+                alert("o resultado é " + pow +" !");
+            }
+
+            
+            // make API call with parameters and use promises to get response
+            /*
+            fetch("YOUR API GATEWAY ENDPOINT", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+            */
+        }
+        </script>
+   </head>
+<body>
+    <h1>Enter the power below..</h1>
+	<form>
+        <label>Base:</label>
+        <input type="number" id="base" placeholder="10">
+        <label>  expoente:</label>
+        <input type="number" id="exponent" placeholder="2">
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="button" onclick="callAPI(document.getElementById('base').value,document.getElementById('exponent').value)">CALCULATE</button>
+    </form>
+</body>
+</html>
